@@ -1,0 +1,23 @@
+plugins {
+    // Apply the scala plugin to add support for Scala
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'scala'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.12.8'
+    implementation 'org.apache.spark:spark-sql_2.12:3.2.3'
+    implementation 'io.delta:delta-core_2.12:2.2.0'
+
+    // Use Scalatest for testing our library
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.scalatest:scalatest_2.12:3.0.5'
+}
+
+shadowJar {
+  zip64 true
+}
