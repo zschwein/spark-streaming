@@ -1,18 +1,8 @@
 FROM openjdk:11-jdk-slim as source
-ARG GRADLE_VERSION=7.6
-
-RUN apt-get -y update && \
-  apt-get -y install wget unzip && \
-  wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
-  unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
-  ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest
-
-ENV GRADLE_HOME=/opt/gradle/latest
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 COPY . /tmp/app
 WORKDIR /tmp/app
-RUN gradle shadowJar
+RUN ./gradlew shadowJar
 
 FROM apache/spark:v3.3.0 as spark
 
